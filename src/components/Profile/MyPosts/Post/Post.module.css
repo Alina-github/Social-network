@@ -1,0 +1,21 @@
+.item {
+    color: black;
+    font-size: 22px;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.item img {
+    width: 100px;
+    border-radius: 50%;
+    display: inline-block;
+}
+ p{
+     display: inline-block;
+ }
+
+ /*@media(max-width: 1000px) {*/
+ /*    .item img{*/
+ /*        opacity:1;*/
+ /*    }*/
+ /*}*/

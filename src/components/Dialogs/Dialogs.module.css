@@ -1,0 +1,64 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.users a {
+color:white;
+}
+
+.users a:hover {
+    color: aqua;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.users{
+padding: 10px;
+
+}
+
+.user{
+margin: 5px;
+    width: 100px;
+
+}
+
+.messages{
+    padding: 10px;
+}
+.circle {
+    width: 50px;
+    height: 50px;
+    background-color: peachpuff;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+    color: rebeccapurple;
+    font-size: 14px
+}
+
+.contact {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+/* Message styling */
+
+.massageFrame {
+    width: 300px;
+    padding:10px;
+    background-color: azure;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    opacity: .8;
+    font-size: 20px;
+    color: darkslategrey;
+}
+
+.massageFrame:nth-child(2n){
+    text-align: right;
+}
+

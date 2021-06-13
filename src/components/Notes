@@ -1,0 +1,53 @@
+callback is the function send as an argument to another function.
+When One function referring to another one for it's finishing.
+
+Паттерны проектирования (собесы):
+- observer:
+(Observer is a behavioral design pattern that lets you define a subscription mechanism to notify multiple
+objects about any events that happen
+to the object they’re observing.)
+Parts: publisher, subscribers.
+Example: по этому паттерну работает button.addEventListener (as well as onClick, onChange)
+
+Инкапсуляция - сокрытие деталей. Мы используем только интерфейс объкта.
+_key: value -> private property
+
+Cеттеры и геттеры - для нас это просто положи и достань. Но под капотом может быть сокрыта сложная логика =>
+вместо простого присвоения, у объекта пользуем сеттер
+
+THIS
+this указывает на объект, который его ВЫЗЫВАЕТ. Пример:
+state.addPost() - state вызывает addPost => this будет указывать на state
+state.addPost - просто указание на метод без вызова. Значит this для addPost будет тот, кто его вызвал.
+
+BIND
+Если я хочу связать контекст this с определенный объектом, я вызываю метод bind.
+Продолжение примера:  Хочу связать state.addPost с объектом state =>
+state.addPost.bind(state). Все, теперь, если внутри f addPost будет this, он ссылается на state.
+
+1 create a folder for reducers
+2 create reducers (profile, dialog, sidebar)
+3 reducer takes state and action;
+do smth with STATE and return state (do not include observer)
+4 export reducers
+5 now inside dispatch add each reducer.
+It'll be checked every time action id dispatched;
+6 call callsubscriber to rerender the tree
+    7. chande if to cases
+    8. Pass action creators to reducers.
+
+REDUX
+terminology
+action - obj that has type
+1 add reducers to store
+- combineReducers()
+2 initialize initial state followinf ex:
+
+sum (a=1, b=1) {}
+return a+b //
+sum() => if no parameters passed, default 1 ans 1 will be used.
+ the same logic is with initial state:
+ const profileReducer = (state = initialState, action )
+
+44 - просто посмоте
+connent и далее очень важно
