@@ -49,5 +49,55 @@ sum() => if no parameters passed, default 1 ans 1 will be used.
  the same logic is with initial state:
  const profileReducer = (state = initialState, action )
 
-44 - просто посмоте
-connent и далее очень важно
+РАНДОМ
+создаем let refContainer = React.createRef()
+    //получает нативный DOM-элемент, т.е в ref мы храним
+        //ссылки на узел DOM
+       в любом месте указываем <textarea ref={refContainer}>
+ассинхронный значит где-то в стороне, "сайд эффект"
+
+PURE FUNCTION
+Pure functions are for producing some output based on given inputs. A function maps input values to output values.
+(идемпатентность, детерминированность) функция принимает одни данные и возвращает результат, определенный именно этими даннвми.
+Если придут другие данные - результат будет другой, определенный именно ЭТИМИ даннвми.
+REACT: ф функцию приходят props и возвр. JSX.(props -> functional component -> JSX).
+Детерминироанная функция - она чистая , сайд эффектов (влияние глобальные стейтов, которые м измениться).
+array - это объекты, .push, toUpperCase, splice - не меня.т сам объект, поэтому объект остается равен себе же.
+Connect, React такие изменения не отлавливает и перерсовку не делает.
+PF shouldn't include:
+- api calls;
+- modification of parameters;
+- change DOM directly;
+- change outer scope variables;
+
+ГЛУБОКОЕ И ПОВЕРХНОСТНОЕ КОПИРОВАНИЕ
+Мы редьюсером не имеем право ничего менять. Он должен пушить и менять только копию.
+
+For example:
+        switch() {
+        case:
+        ...
+        let stateCopy = {...state}
+        stateCopy.posts = {...stateCopy.posts}
+        stateCopy.posts.push(newPost);
+return stateCopy
+} || проще запись: return {...state, posts: [...state.posts, newPost]} - буквально говорим:
+"сделайт стейта такимЖ он как старый, но св-во postData : это скопированная постдата, с дабовленным новым постом
+, а св-во newPostText, который примитив, просто переопределели".
+
+ПРАВИЛА при разработке:
+- иммутабельность: ф-я не должна изменять приходящие к ней данные
+(e.g reducer д. брать стейт и менять action-ом копию этого стейта, оригинальный объект не меняем);
+- reducers must be pure functions;
+- в моем приложении я придерживаюсь концепции: 1 page - 1 reducer;
+
+
+REACT-REDUX -- прослойка м-у BBL и UI
+- Provider is given to “provide” the store to its child components.
+- The connect() function connects a React component to a Redux store.
+- connect(mstp, mdtp)(component) - создает контейнер для нашей презентационной компоненты,
+чтобы она пользовалась данными стора через пропсы
+- mapStateToProps - преобразует часть стейта в пропсы
+- mapDispatchToProps - возвращается коллбэки, нужные нашей функции.
+
+Классы нужны для создания однотипных объектов

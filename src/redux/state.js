@@ -2,7 +2,7 @@ import profilePageReducer from './reducers/profile-reducer';
 import dialogPageReducer from "./reducers/dialogPage-reducer";
 import sideBarReducer from "./reducers/sideBar-reducer";
 
-    export let store = {
+    let store = {
 
         _state: {
             profilePage: {

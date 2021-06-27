@@ -4,8 +4,8 @@ import style from './Dialogs.module.css'
 import {addMessageActionCreator, updateMessageTextActionCreator} from "../../redux/reducers/dialogPage-reducer";
 
 const Dialogs = (props) => {
-debugger
-    let newMessageBody = props.state.newMessageBody;
+
+    let newMessageBody = props.newMessageBody;
 
     const Dialog = (props) => {
 
@@ -25,7 +25,7 @@ debugger
         )
     }
     let dialogItems =
-        props.state.dialogsData.map(d => (
+        props.dialogPage.dialogsData.map(d => (
             <div key={d.id}>
                 <div className={style.contact}>
                     <img
@@ -35,7 +35,7 @@ debugger
                 </div>
             </div>))
 
-    let messageItem = props.state.messagesData.map(m => (
+    let messageItem = props.dialogPage.messagesData.map(m => (
             <div key={m.id} className={style.massageFrame}>
                 <Message message={m.message} id={m.id}/>
             </div>
@@ -44,11 +44,11 @@ debugger
 
     const updateMessageContent = (e) => {
         newMessageBody = e.target.value;
-        props.dispatch(updateMessageTextActionCreator(newMessageBody))
+        props.updateMessageContent(newMessageBody)
     }
 
     const sendMessage = () => {
-        props.dispatch(addMessageActionCreator());
+        props.sendMessage();
     }
 
     return (

@@ -3,6 +3,9 @@ import style from './Navbar.module.css'
 import {Link, NavLink} from "react-router-dom"
 
 const Navbar = (props) => {
+
+    let state = props.store.getState();
+
     const Friend = (props) => {
         let path = "/friends/" + props.id;
         return (
@@ -12,8 +15,9 @@ const Navbar = (props) => {
                 </div>
                 )
             }
+
     let mainFriends =
-        props.state.slice(0, 3).map(d => (
+        state.sideBarFriends.sideBarFriends.slice(0, 3).map(d => (
             <div key={d.id}>
         < Friend id={d.id} name={d.name}/>
             </div>))
