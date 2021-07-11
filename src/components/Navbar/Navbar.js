@@ -10,16 +10,16 @@ const Navbar = (props) => {
         let path = "/friends/" + props.id;
         return (
             <div className={style.circle}>
-            <Link to={path}>{props.name}
+                <Link to={path}>{props.name}
                 </Link>
-                </div>
-                )
-            }
+            </div>
+        )
+    }
 
     let mainFriends =
         state.sideBarFriends.sideBarFriends.slice(0, 3).map(d => (
             <div key={d.id}>
-        < Friend id={d.id} name={d.name}/>
+                < Friend id={d.id} name={d.name}/>
             </div>))
 
     return (
@@ -29,12 +29,14 @@ const Navbar = (props) => {
             <div className={style.item}><NavLink to="/news" activeClassName={style.active}>News</NavLink></div>
             <div className={style.item}><NavLink to="/music" activeClassName={style.active}>Music</NavLink></div>
             <div className={style.item}><NavLink to="/settings" activeClassName={style.active}>Settings</NavLink></div>
-
-                <div className={`${style.friendBox}`}>
-                    <div className={`${style.friendsTitle} ${style.item}`}><NavLink to="/friends" activeClassName={style.active}>Friends</NavLink></div>
-                    <div className={style.friends}>{mainFriends}</div>
+            <div className={style.item}><NavLink to="/users" activeClassName={style.active}>Users</NavLink></div>
+            <div className={`${style.friendBox}`}>
+                <div className={`${style.friendsTitle} ${style.item}`}><NavLink to="/friends"
+                                                                                activeClassName={style.active}>Friends</NavLink>
                 </div>
+                <div className={style.friends}>{mainFriends}</div>
+            </div>
         </nav>
-    )
+)
 }
 export default Navbar
