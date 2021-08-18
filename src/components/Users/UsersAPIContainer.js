@@ -1,26 +1,30 @@
 import React from 'react'
-import axios from 'axios'
+import * as axios from 'axios'
 import Users from "./Users";
-import {NavLink} from "react-router-dom";
-import {setPagesCount} from "../../redux/reducers/users-reducer";
+import {usersAPI} from "../api/usersAPI";
+import {toggleFollowingProcess} from "../../redux/reducers/users-reducer";
+
 
 class UsersAPIContainer extends React.Component {
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(res => {
-                this.props.setUsers(res.data.items);
-                this.props.setPagesCount(res.data.totalCount/250);
-            }
+        this.props.setIsFetching(true);
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
+                    this.props.setIsFetching(false);
+                this.props.setUsers(data.items);
+                this.props.setPagesCount(data.totalCount/250);
+        }
         )
     }
 
     onPageChange = (n) => {
         this.props.setCurrentPage(n);
         this.props.setIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${n}&count=${this.props.pageSize}`).then(res => {
-            this.props.setUsers(res.data.items);
+        usersAPI.getUsers(n, this.props.pageSize).then(data => {
             this.props.setIsFetching(false);
-            console.log( this.props.isFetching)
+            this.props.setUsers(data.items);
+            this.props.setIsFetching(false);
             }
         )
     }
@@ -35,6 +39,8 @@ class UsersAPIContainer extends React.Component {
             users={this.props.users}
             currentPage={this.props.currentPage}
             isFetching={this.props.isFetching}
+            following={this.props.following}
+            toggleFollowingProcess={this.props.toggleFollowingProcess}
         />
     }
 }

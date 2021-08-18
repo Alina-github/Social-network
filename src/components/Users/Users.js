@@ -1,9 +1,10 @@
 import React from 'react'
 import style from './Users.module.css';
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 const Users = (props) => {
-
+    debugger
     const pageNumber = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pageNumber; i++) {
@@ -15,11 +16,11 @@ const Users = (props) => {
         <div>
             <div>
                 {props.isFetching && <img style={{width: "40px", height: "40px"}}
-                     src="https://lh5.googleusercontent.com/proxy/L2_DpgFsWplHw9VzEx-jRwwb1k_snbtYjmvm1ACG1F8NPov22Xzzg2quaX4ztpjmksWidkiaNxj2su_o6aoNl3RGMRMED9kUNEhwzHO6dWw5_XaUSpXr0V6Q30rG0fL5-dD1vaf1Az0=s0-d"/>}
+                                          src="https://lh5.googleusercontent.com/proxy/L2_DpgFsWplHw9VzEx-jRwwb1k_snbtYjmvm1ACG1F8NPov22Xzzg2quaX4ztpjmksWidkiaNxj2su_o6aoNl3RGMRMED9kUNEhwzHO6dWw5_XaUSpXr0V6Q30rG0fL5-dD1vaf1Az0=s0-d"/>}
             </div>
             <div>
-                {pages.map(n =>
-                    <span className={props.currentPage===n && style.selectedPage}
+                {pages?.map(n =>
+                    <span className={props.currentPage === n && style.selectedPage}
                           onClick={() => props.onPageChange(n)}>
                             {n}
                         </span>
@@ -31,17 +32,53 @@ const Users = (props) => {
                     <>
                         <div key={u.id}>
                             <div>{u.name}</div>
-                           <NavLink to="/profile"> <img className={style.userImage}
-                                 src={u.photos.small ? u.photos.small : avatarURL}
-                                 onClick={() => {console.log('open profile')}}/></NavLink>
+                            <NavLink to={`/profile/${u.id}`}> <img className={style.userImage}/>
+                            </NavLink>
                             <div>
                                 {u.followed
-                                    ? <button onClick={() => {
-                                        props.unfollow(u.id);
+                                    ? <button disabled={props.following.some(id => id == u.id)}
+                                              onClick={() => {
+                                                  props.toggleFollowingProcess(true, u.id);
+                                                  axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                                  {
+                                                      withCredentials: true,
+                                                      headers: {
+                                                          "API-KEY": "2f152a2a-147c-4113-8297-3b8ab8e30893"
+                                                }
+                                            }).then(response => {
+                                            if (response.data.resultCode === 0) {
+                                                props.unfollow(u.id);
+                                                props.toggleFollowingProcess(false, u.id);
+                                            }
+                                        });
                                     }}>Unfollow</button>
-                                    : <button onClick={() => {
-                                        props.follow(u.id)
-                                    }}>Follow</button>
+                                    : <button
+                                         disabled={props.following.some(id => id == u.id)}
+
+                                        // Create following in Progress as an array which store the numbers of id that was clicked (add id in the end of arr)
+                                        // Change reducer to : если фетчится то добавь в конец массива. Если ветчинг завершен, то верни отфильтрованный массив, где нет ид из arr.
+                                        // SOME, EVERY
+                                        // this.props.toggleFollowingProcess.some(id =
+                                        // do the check
+                                        // (true)
+
+                                        onClick={() => {
+                                            props.toggleFollowingProcess(true, u.id);
+                                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {},
+                                                {
+                                                    withCredentials: true,
+                                                    headers: {
+                                                        "API-KEY": "2f152a2a-147c-4113-8297-3b8ab8e30893"
+                                                    }
+                                                }).then(response => {
+                                                if (response.data.resultCode === 0) {
+                                                    props.follow(u.id);
+                                                    props.toggleFollowingProcess(false, u.id);
+                                                }
+                                            });
+                                        }
+                                        }>
+                                        Follow</button>
                                 }
                             </div>
                         </div>
@@ -59,4 +96,4 @@ const Users = (props) => {
     )
 }
 
-export default Users;
+export default Users

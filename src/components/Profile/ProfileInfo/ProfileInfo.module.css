@@ -1,5 +1,19 @@
 .wallpaper {
     max-width: 700px;
+    }
+
+.info {
+    border: 1px solid grey;
+}
+
+.items {
+    margin: 0;
+    font-size: 14px;
+}
+
+.wallpaper img {
+    width: 350px;
+    height: 200px;
 }
 
 .avatar {

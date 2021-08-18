@@ -1,11 +1,13 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_POST = "UPDATE_POST";
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 export const addPostActionCreator = () => ({type: ADD_POST})
 export const updateNewPostTextActionCreator = (text) => ({type: UPDATE_POST, payload: text})
+export const setUserProfile = (user) => ({type: SET_USER_PROFILE, payload: user})
 
 let initialState =
-    {
+    {   profileData: {},
         newPostText: 'BBL data',
         postData: [{id: "1", message: "I'm here!!!", likesCounter: "3"},
             {id: "2", message: "It's my first post", likesCounter: "0"},
@@ -22,7 +24,6 @@ let profilePageReducer = (state = initialState, action) => {
                 message: state.newPostText,
                 likesCounter: "0"
             }
-
             return {...state, postData: [...state.postData, post], newPostText: ''};
 
         case UPDATE_POST:
@@ -33,6 +34,13 @@ let profilePageReducer = (state = initialState, action) => {
                 newPostText: action.payload
             };
             //возвращаем измененную копию объекта в качестве нового стейта.
+        case SET_USER_PROFILE:
+            debugger
+            return {
+                ...state,
+                profileData: action.payload
+            };
+
         default:
             return state;
     }

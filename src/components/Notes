@@ -95,6 +95,11 @@ return stateCopy
 "сделайт стейта такимЖ он как старый, но св-во postData : это скопированная постдата, с дабовленным новым постом
 , а св-во newPostText, который примитив, просто переопределели".
 
+Еще пример:
+return
+...state,
+...action.data - те стоит после стейта, обновленные данные перезатрут старые;
+
 ПРАВИЛА при разработке:
 - иммутабельность: ф-я не должна изменять приходящие к ней данные
 (e.g reducer д. брать стейт и менять action-ом копию этого стейта, оригинальный объект не меняем);
@@ -137,3 +142,71 @@ curry(func) - обёртка function(a). Зачем? Для применени�
 ФП в JS:
 Пример: ф-я .map, которая не мутирует аррэй  - это принцип функционального программирования.
 Если либовские методы, которые позволяют комбинировать функции ждя
+
+withRouter - HOC, через него я могу добраться до компоненты без Link, NavLink
+
+задания:
+- при клике на юзера попадать на профайл пейдж с авой и описанием
+сделать переход на юзерИД опциональным
+если юзерИД нет, то отобрази 2ю стр
+
+- создать auth reducer
+инишл стейт как параметры (все налл: .useID, login, email, isauth)
+ добавить АС к общим ас-ам (назови auth);
+ - в хедере создать дивб с навлинком /login
+ - создать хедер контейнер
+ после вмонтирования компонента сделать запрос на сервер ...authme
+- проверить если респонм дата response.data.resultCode === 0
+через коннект создать еще одну  контейнерую компоненту
+(state and ac попадет в пропсы);
+
+3. follow / unfollow
+on button click make post request with credentials (see documentation)
+on btn click delete subscription (62/ 16 min);
+- generate the access key to log in ti the platform
+- add header "API-KEY": ...
+--- add withCredentials - true
+
+ROUTES
+To get id from NavLink passins use
+props.match.params.id
+
+DAL - data access layer
+
+1. create folder "api"
+import all from axios
+create function getUsers () => with parameters (count = initial value, pageSize)
+axios.get withCredentials true
+create instanse of axios with axios.create() {
+wothcredentials
+API KEY
+baseURL}
+
+getIsers with parameters/URL and then return response.data
+return
+
+2. inside the component using '.then' do the stuff....
+
+THUNKS
+Функция, которая выполняет асинхронный запрос и диспатчик внутри себя экшены.
+Redux Thunk middleware allows you to write action creators that return a function instead of an action.
+
+Запись: const addPostThunkCreator = (message) => (dispatch) => {
+                    dispatch(isFetching())
+                        axios.post({message}).then( () => {
+                        dispatch(addPost(message))}}
+We can dispatch either actions or thunks ("преобразователи")
+When creating a store we can crete thunk middleware (прокладочный слой):
+
+" const enhancer = composeWithDevTools(
+  applyMiddleware(thunkMiddleware.withExtraArgument({ history }))
+);
+export const store = createStore(rootReducer, enhancer); "
+
+Thunks practical exercises:
+1. for UsersContainer we create thunkCreator responsible for gettingUsers process;
+2. we map thunk creator to props and ue it in UsersCreator;
+3. install environment for redux thunks : npm i "redux-thunk";
+import thunkMiddleware from "redux-thunk";
+4. move delete and post to usersAPI
+5 create follow thunk that will dispatch 2 sctions (followSuccess, unfollowSuccess)

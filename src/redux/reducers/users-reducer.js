@@ -4,13 +4,15 @@ let SET_USERS = "SET_USERS";
 let SET_PAGES = "SET_PAGES";
 let SET_CURRENT_PAGE = "SET_CURRENT_PAGES";
 let TOOGLE_IS_FETCHING = "TOOGLE_IS_FETCHING";
+let FOLLOWING_PROCESS = "FOLLOWING_PROCESS";
 
 let initialState = {
     users:[],
-    pageSize: 5,
-    totalUsersCount: 40,
-    currentPage: 1,
-    isFetching: false
+    pageSize: 10,
+    totalUsersCount: 10,
+    currentPage: 1330,
+    isFetching: false,
+    following: []
 };
 
 const usersPageReducer = (state = initialState, action) => {
@@ -30,6 +32,7 @@ const usersPageReducer = (state = initialState, action) => {
                 )
             }
         case UNFOLLOW:
+            debugger
             return {
                 ...state,
                 users: state.users.map(u => {
@@ -50,6 +53,11 @@ const usersPageReducer = (state = initialState, action) => {
             return {...state, currentPage: action.currentPage};
         case TOOGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching};
+        case FOLLOWING_PROCESS:
+            debugger
+            return action.isFetching ?
+                    {...state, following: [...state.following, action.id]}
+                : state.following.filter(id => id !== action.id)
         default:
             return state;
     }
@@ -76,6 +84,9 @@ export const setIsFetching = (isFetching) => {
     return {type: TOOGLE_IS_FETCHING, isFetching: isFetching}
 };
 
+export const toggleFollowingProcess = (isFetching, id) => {
+    return {type: FOLLOWING_PROCESS, isFetching, id}
+};
 
 
 
