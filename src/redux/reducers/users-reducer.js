@@ -1,3 +1,5 @@
+import {usersAPI} from "../../components/api/usersAPI";
+
 let FOLLOW = "FOLLOW";
 let UNFOLLOW = "UNFOLLOW";
 let SET_USERS = "SET_USERS";
@@ -32,7 +34,6 @@ const usersPageReducer = (state = initialState, action) => {
                 )
             }
         case UNFOLLOW:
-            debugger
             return {
                 ...state,
                 users: state.users.map(u => {
@@ -54,10 +55,10 @@ const usersPageReducer = (state = initialState, action) => {
         case TOOGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching};
         case FOLLOWING_PROCESS:
-            debugger
             return action.isFetching ?
                     {...state, following: [...state.following, action.id]}
-                : state.following.filter(id => id !== action.id)
+                :   {...state, following: state.following.filter(id => id !== action.id)}
+
         default:
             return state;
     }
@@ -88,5 +89,14 @@ export const toggleFollowingProcess = (isFetching, id) => {
     return {type: FOLLOWING_PROCESS, isFetching, id}
 };
 
-
-
+export const getUsersThunkCreator = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(setIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(setIsFetching(false));
+                dispatch(setUsers(data.items));
+                dispatch(setPagesCount(data.totalCount / 200));
+            })
+        }
+}

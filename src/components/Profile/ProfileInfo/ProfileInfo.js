@@ -1,9 +1,9 @@
 import style from "./ProfileInfo.module.css";
+import ProfileStatus from "./ProfileStatus";
+
 
 const ProfileInfo = (props) => {
-
     let obj = props.profile.contacts;
-
     return (
         <div>
             <div className={style.wallpaper}>
@@ -12,9 +12,11 @@ const ProfileInfo = (props) => {
             </div>
             <img className={style.avatar}
                  src={props.profile.photos?.small}/>
+
+            <ProfileStatus status={props.profile.status} updateProfileStatus={props.updateProfileStatus}
+/>
+
             <div className={style.info}>
-                <div> aboutMe: {props.profile.aboutMe}
-                </div>
                 <div> contacts:
                     { obj && Object.keys(obj).forEach((el, i) => (
                         el && <p className={style.items}>el:{obj['el']}</p>)

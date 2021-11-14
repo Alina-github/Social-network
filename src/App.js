@@ -1,25 +1,25 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header/Header';
+import HeaderContainer from '././components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Navbar';
 import {BrowserRouter, Route} from 'react-router-dom';
 
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
+import NewProfileComponent from "./components/Profile/ProfileContainer";
+import UserWithAuthRedirect from "./components/Users/UsersContainer";
+import LoginForm from "../src/components/Login/LoginContainer";
 
 const App = (props) => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
-                <Header/>
+                <HeaderContainer store={props.store}/>
                 <Navbar store={props.store}/>
                 <div className="content">
-
-                    <Route path="/profile/:userId?" render={() => <ProfileContainer store={props.store}
-                    />}/>
+                    <Route path="/login" render={() => <LoginForm store={props.store}/>}/>
+                    <Route path="/profile/:userId?" render={() => <NewProfileComponent store={props.store}/>}/>
                     <Route path="/dialogs" render={() => <DialogsContainer store={props.store}/>}/>
-                    <Route path="/users" render={() => <UsersContainer store={props.store}/>} />
+                    <Route path="/users" render={() => <UserWithAuthRedirect store={props.store}/>} />
                 </div>
             </div>
         </BrowserRouter>

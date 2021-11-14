@@ -3,6 +3,7 @@
     color: darkblue;
     weight: 900;
     font-size: 26px;
+
 }
 
 .logo {
@@ -12,4 +13,16 @@
 .header {
     grid-area: h;
     background-color: orange;
+    display: flex;
+    justify-content: space-between;
+}
+
+.loginBlock{
+    border: 1px solid darkblue;
+    display: flex;
+    align-items: center;
+    color: darkblue;
+    font-size: 18px;
+    padding: 0 10px;
+    border-radius: 50%;
 }

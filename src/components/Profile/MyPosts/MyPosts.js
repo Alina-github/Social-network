@@ -1,9 +1,19 @@
-import React from 'react'
-import style from './MyPosts.module.css'
-import Post from './Post/Post'
+import React from 'react';
+import style from './MyPosts.module.css';
+import Post from './Post/Post';
+import {useForm} from "react-hook-form";
 
 const MyPosts = (props) => {
-    let postItems =  props.profilePage.postData.map(p =>
+
+    const {handleSubmit, register, formState: { errors }, reset,
+   } = useForm();
+
+    const onSubmit = values => {
+        showPost();
+        reset();
+    }
+
+    let postItems = props.profilePage.postData.map(p =>
         <Post id={p.id} message={p.message} likesCounter={p.likesCounter}/>)
 
     const showPost = () => {
@@ -19,10 +29,26 @@ const MyPosts = (props) => {
         <div className="content">
             <div className={`${style.item} ${style.active}`}> My Posts</div>
             <div className={style.item}> New Post</div>
-            <textarea onChange={(e) => onPostChange(e)} value={props.profilePage.newPostText}></textarea>
-            <div><button onClick={showPost}>Add post</button>
-            <button>Remove</button>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <input
+                    {...register("post",
+                        {
+                            mode: "all",
+                            defaultValue: props.profilePage.newPostText,
+                            // value: props.profilePage.newPostText,
+                            required: true,
+                            onChange: (e) => {
+                                onPostChange(e);
+                            },
+                            reValidateMode: 'onBlur',
+                        }
+                    )}
+                />
+                {errors.post && <div style={{color: 'darkorange'}}>This field is required</div>}
+                <div>
+                    <button type="submit">Add post</button>
                 </div>
+            </form>
             {postItems}
         </div>
     )

@@ -1,3 +1,7 @@
+CREATE_REACT_APP
+package-json lock/yarn lock - fix the versions so that other dev-s
+npm/yarn install the same versions and the app doesn't crush.
+
 callback is the function send as an argument to another function.
 When One function referring to another one for it's finishing.
 
@@ -167,6 +171,12 @@ on btn click delete subscription (62/ 16 min);
 - add header "API-KEY": ...
 --- add withCredentials - true
 
+СLASSES
+Классы нужны, чтобы создавать однотипные объекты.
+When create classes, don't forget to bind this or
+REMEMBER: setState is async and will return result on
+parent funct completion;
+
 ROUTES
 To get id from NavLink passins use
 props.match.params.id
@@ -210,3 +220,24 @@ Thunks practical exercises:
 import thunkMiddleware from "redux-thunk";
 4. move delete and post to usersAPI
 5 create follow thunk that will dispatch 2 sctions (followSuccess, unfollowSuccess)
+
+fn COMPOSE - compose HOCs over the initial component (when export use default compose()(component)
+LOCAL STATE
+what for? on local state change Component will be re-rendered;
+- нужен для UI-ных штук (цвет);
+- нужен как прослойка между BLL и component;
+
+МИГРАЦИЯ - переход на новую версию
+например с косячной create-react-app на updated.
+
+ДОКАПЫВАТЬСЯ ДО СУТИ но в рамках времени, данного на проекте как разработчику.
+Дебаггаре должен работать корректно, update до последней версией скриптов (иначе, this - мб undefined, дублирование файлов и тд
+в devtools).
+
+componentDidUpdate - вызывает перерисовку компонента,
+когда 1. меняется локальный стейт 2. вызывается перерисовка родителя (=предоставляются новые пропсы).
+
+1. сделать апп классовой
+2. на КомпонентДидМаунт  делать запрос на authMe
+3. пропсы передавать ей через коннектом и обратить внимание на роуты
+4.

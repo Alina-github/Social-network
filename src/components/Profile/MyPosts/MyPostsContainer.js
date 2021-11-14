@@ -18,7 +18,8 @@ let mapDispatchToProps = (dispatch) => {
     updateNewPostText: (newText) => {dispatch(updateNewPostTextActionCreator(newText))}
     }
 }
-let MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts) // т.е мы говорим, хэй перерисуйся,
+let MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+// т.е мы говорим, хэй перерисуйся,
 // если изменить хоть что нб из mapStateToProps
 
 export default MyPostsContainer

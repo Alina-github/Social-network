@@ -1,36 +1,20 @@
 import React from 'react'
-import * as axios from 'axios'
 import Users from "./Users";
-import {usersAPI} from "../api/usersAPI";
-import {toggleFollowingProcess} from "../../redux/reducers/users-reducer";
 
 
 class UsersAPIContainer extends React.Component {
 
     componentDidMount() {
-        this.props.setIsFetching(true);
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                    this.props.setIsFetching(false);
-                this.props.setUsers(data.items);
-                this.props.setPagesCount(data.totalCount/250);
-        }
-        )
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChange = (n) => {
         this.props.setCurrentPage(n);
-        this.props.setIsFetching(true);
-        usersAPI.getUsers(n, this.props.pageSize).then(data => {
-            this.props.setIsFetching(false);
-            this.props.setUsers(data.items);
-            this.props.setIsFetching(false);
-            }
-        )
+        this.props.getUsers(n, this.props.pageSize);
     }
 
     render() {
-        return    <Users
+        return <Users
             totalUsersCount={this.props.totalUsersCount}
             pageSize={this.props.pageSize}
             onPageChange={this.onPageChange}

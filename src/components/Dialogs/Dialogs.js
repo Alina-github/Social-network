@@ -1,7 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import style from './Dialogs.module.css'
-import {addMessageActionCreator, updateMessageTextActionCreator} from "../../redux/reducers/dialogPage-reducer";
 
 const Dialogs = (props) => {
 
@@ -51,28 +50,32 @@ const Dialogs = (props) => {
         props.sendMessage();
     }
 
-    return (
-        <div className={style.dialogs}>
-            <div className={style.users}>
-                {dialogItems}
-            </div>
-            <div className={style.messages}>
-                {messageItem}
+    if (!props.isAuth) {
+        return <Redirect to="/login" />}
+    else {
+        return (
+            <div className={style.dialogs}>
+                <div className={style.users}>
+                    {dialogItems}
+                </div>
+                <div className={style.messages}>
+                    {messageItem}
 
-                <div>
+                    <div>
                     <textarea className={style.massageFrame}
                               placeholder="Enter text..."
-                              value = {newMessageBody}
-                    onChange = {updateMessageContent}>
+                              value={newMessageBody}
+                              onChange={updateMessageContent}>
                         </textarea>
-                    <div>
-                        <button onClick={sendMessage}>Add</button>
+                        <div>
+                            <button onClick={sendMessage}>Add</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-    )
+        )
+    }
 }
 
 export default Dialogs
