@@ -5,10 +5,6 @@ import {receiveAuthUserData, logOut} from "../../redux/reducers/auth-reducer";
 
 class HeaderAPIContainer extends React.Component {
 
-    componentDidMount() {
-        this.props.receiveAuthUserData();
-    }
-
     render() {
         return <Header {...this.props} />
     }

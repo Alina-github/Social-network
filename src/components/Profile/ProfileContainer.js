@@ -11,7 +11,7 @@ class ProfileContainer extends Component {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 2
+            userId = this.props.userId;
         }
         this.props.getProfileStatus(userId);
         this.props.returnProfileData(userId);
@@ -24,6 +24,7 @@ class ProfileContainer extends Component {
 
 let mapStateToProps = (state) => ({
     profile: state.profilePage,
+    userId: state.userId
 });
 
 export default compose(

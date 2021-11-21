@@ -5,12 +5,12 @@ import Users from "./Users";
 class UsersAPIContainer extends React.Component {
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        this.props.requestUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChange = (n) => {
         this.props.setCurrentPage(n);
-        this.props.getUsers(n, this.props.pageSize);
+        this.props.requestUsers(n, this.props.pageSize);
     }
 
     render() {

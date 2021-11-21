@@ -2,6 +2,7 @@ import React from 'react'
 import style from './Users.module.css';
 import {NavLink} from "react-router-dom";
 import {usersAPI} from "../api/usersAPI";
+import Loader from "../common/Loader";
 
 const Users = (props) => {
 
@@ -14,10 +15,7 @@ const Users = (props) => {
 
     return (
         <div>
-            <div>
-                {props.isFetching && <img style={{width: "40px", height: "40px"}}
-                                          src="https://lh5.googleusercontent.com/proxy/L2_DpgFsWplHw9VzEx-jRwwb1k_snbtYjmvm1ACG1F8NPov22Xzzg2quaX4ztpjmksWidkiaNxj2su_o6aoNl3RGMRMED9kUNEhwzHO6dWw5_XaUSpXr0V6Q30rG0fL5-dD1vaf1Az0=s0-d"/>}
-            </div>
+                {props.isFetching && <Loader/>}
             <div>
                 {pages?.map(n =>
                     <span className={props.currentPage===n && style.selectedPage}

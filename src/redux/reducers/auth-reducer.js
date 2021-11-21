@@ -1,4 +1,5 @@
 import {authAPI} from '../../components/api/authAPI';
+import {initializeApp} from "./initialization-reducer";
 
 const AUTHENTIFICATION = 'AUTHENTIFICATION';
 const AUTHENTIFICATION_ERROR = 'AUTHENTIFICATION_ERROR';
@@ -39,6 +40,7 @@ export const receiveAuthUserData = () => {
                 if (res.data.resultCode === 0) {
                     let {id, login, email} = res.data.data;
                     dispatch(setAuthUserData({id, login, email, isAuth: true}));
+                    // dispatch(initializeApp({initialization: true}));
                 }
             })
     }
@@ -66,7 +68,7 @@ export const logOut = () => {
             .then(res => {
                     if (res.data.resultCode === 0) {
                         let {email, password, rememberMe} = res.data.data;
-                        dispatch(setAuthUserData( {email, password, rememberMe,isAuth: false}))
+                        dispatch(setAuthUserData( {email, password, rememberMe,isAuth: false, id: null}))
                     }
                 }
             )

@@ -92,7 +92,7 @@ export const toggleFollowingProcess = (isFetching, id) => {
 export const getUsersThunkCreator = (currentPage, pageSize) => {
     return (dispatch) => {
         dispatch(setIsFetching(true))
-        usersAPI.getUsers(currentPage, pageSize)
+        usersAPI.requestUsers(currentPage, pageSize)
             .then(data => {
                 dispatch(setIsFetching(false));
                 dispatch(setUsers(data.items));

@@ -3,15 +3,17 @@ import profilePageReducer from "./reducers/profile-reducer";
 import dialogPageReducer from "./reducers/dialogPage-reducer";
 import sideBarReducer from "./reducers/sideBar-reducer";
 import usersPageReducer from "./reducers/users-reducer";
-import thunkMiddleware from "redux-thunk";
+import initializationReducer from "./reducers/initialization-reducer";
 import authorizationReducer from "./reducers/auth-reducer";
+import thunkMiddleware from "redux-thunk";
 
 let reducers = combineReducers({
     profilePage: profilePageReducer,
     dialogPage: dialogPageReducer,
     sideBarFriends: sideBarReducer,
     usersPage: usersPageReducer,
-    authMe :authorizationReducer
+    authMe :authorizationReducer,
+    initialization: initializationReducer,
     }
 );
 

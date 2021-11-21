@@ -185,7 +185,7 @@ DAL - data access layer
 
 1. create folder "api"
 import all from axios
-create function getUsers () => with parameters (count = initial value, pageSize)
+create function requestUsers () => with parameters (count = initial value, pageSize)
 axios.get withCredentials true
 create instanse of axios with axios.create() {
 wothcredentials
@@ -237,7 +237,10 @@ what for? on local state change Component will be re-rendered;
 componentDidUpdate - вызывает перерисовку компонента,
 когда 1. меняется локальный стейт 2. вызывается перерисовка родителя (=предоставляются новые пропсы).
 
-1. сделать апп классовой
-2. на КомпонентДидМаунт  делать запрос на authMe
-3. пропсы передавать ей через коннектом и обратить внимание на роуты
-4.
+
+
+ ?? редиректить (изменить history), если при профайл моунтинге authMe возвращает фолс.
+1. рефакторинг: заменить захардкоженный селекты юзеров на функции из отдельной папки селекторы.
+
+
+
